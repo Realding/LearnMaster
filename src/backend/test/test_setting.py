@@ -1,4 +1,4 @@
-from setting import Config
+from ..setting import Config
 
 if __name__ == '__main__':
 

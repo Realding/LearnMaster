@@ -31,22 +31,34 @@ class User(db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, username, password, email=None, phone=None):
+    def __init__(self, username, password, email=None, phone=None, signature=None):
         self.username = username
         self.password = password
+        if not email:
+            email = None
         self.email = email
+        if not phone:
+            phone = None
         self.phone = phone
+        if not signature:
+            signature = None
+        self.signature = signature
         self.is_admin = False
         self.create_time = datetime.now()
         self.login_time = datetime.now()
 
-    default_fields = [
+    input_fields = [
+        'username',
+        'password',
+        'phone',
+        'email',
+        'signature',
+    ]
+
+    return_fields = [
         "id",
         "username",
         "signature",
-    ]
-
-    detail_fields = [
         "phone",
         "email",
         "is_admin",
@@ -85,7 +97,7 @@ class Article(db.Model):
         self.category_id = category_id
         self.is_private = is_private
 
-    default_fields = [
+    return_fields = [
         "id",
         "title",
         "content",

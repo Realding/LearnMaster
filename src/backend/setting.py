@@ -1,11 +1,12 @@
 # This is setting file to config flask server
+import os
 
-
+base_dir = os.path.abspath(os.path.dirname(__file__))
 # Database setting
 databases = {
     "sqlite": {
         "driver": "sqlite",
-        "database": "sqlite.db"
+        "database": os.path.join(base_dir, "sqlite.db")
     },
 
     "mysql": {
@@ -38,3 +39,7 @@ class Config:
     # SQLALCHEMY_ECHO = True
     # 调试模式
     DEBUG = True
+    # 支持返回中文JSON
+    JSON_AS_ASCII = False
+    # JSONIFY_MIMETYPE = "text/plain;charset=UTF-8"
+
